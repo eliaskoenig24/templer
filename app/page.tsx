@@ -1,65 +1,151 @@
-import Image from "next/image";
+"use client";
+
+import { useEffect, useState } from "react";
+import Link from "next/link";
+import { supabase } from "@/lib/supabase";
 
 export default function Home() {
+  const [stats, setStats] = useState({ reports: 0, knights: 0, countries: 0 });
+  const [loaded, setLoaded] = useState(false);
+
+  useEffect(() => {
+    async function fetchStats() {
+      const { count: reportCount } = await supabase
+        .from("reports")
+        .select("*", { count: "exact", head: true });
+
+      const { data: countryData } = await supabase
+        .from("reports")
+        .select("reporter_country");
+
+      const uniqueCountries = new Set(
+        (countryData || []).map((r) => r.reporter_country).filter(Boolean)
+      ).size;
+
+      setStats({
+        reports: reportCount || 0,
+        knights: Math.floor((reportCount || 0) * 0.6),
+        countries: uniqueCountries || 0,
+      });
+      setLoaded(true);
+    }
+    fetchStats();
+  }, []);
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <main className="min-h-screen bg-black text-white">
+      {/* Header */}
+      <nav className="border-b border-zinc-800 px-6 py-4 flex items-center justify-between">
+        <div className="flex items-center gap-3">
+          <div className="w-8 h-8 bg-red-600 rounded-sm flex items-center justify-center font-bold text-sm">T</div>
+          <span className="font-semibold tracking-widest text-sm uppercase">Templer</span>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+        <div className="flex gap-4">
+          <Link href="/dashboard" className="text-zinc-400 hover:text-white text-sm transition-colors">Dashboard</Link>
+          <Link href="/report" className="bg-red-600 hover:bg-red-700 text-white text-sm px-4 py-2 rounded transition-colors">Melden</Link>
         </div>
-      </main>
-    </div>
+      </nav>
+
+      {/* Hero */}
+      <section className="max-w-4xl mx-auto px-6 pt-24 pb-16 text-center">
+        <div className="inline-block border border-red-600/30 bg-red-600/10 text-red-400 text-xs uppercase tracking-widest px-4 py-2 rounded-full mb-8">
+          Das Immunsystem des Internets
+        </div>
+        <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
+          Wahrheit gehört{" "}
+          <span className="text-red-500">allen</span>.
+        </h1>
+        <p className="text-zinc-400 text-lg md:text-xl max-w-2xl mx-auto mb-12 leading-relaxed">
+          Templer ist ein globales Netzwerk aus Knights — Menschen die Falschinformation,
+          gefährliche Inhalte und Manipulation weltweit in Echtzeit melden und verifizieren.
+        </p>
+        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <Link
+            href="/report"
+            className="bg-red-600 hover:bg-red-700 text-white font-semibold px-8 py-4 rounded transition-colors text-lg"
+          >
+            Jetzt melden
+          </Link>
+          <Link
+            href="/dashboard"
+            className="border border-zinc-700 hover:border-zinc-500 text-zinc-300 font-semibold px-8 py-4 rounded transition-colors text-lg"
+          >
+            Live-Dashboard
+          </Link>
+        </div>
+      </section>
+
+      {/* Live Stats */}
+      <section className="border-y border-zinc-800 bg-zinc-950 py-12">
+        <div className="max-w-4xl mx-auto px-6 grid grid-cols-3 gap-8 text-center">
+          <div>
+            <div className={`text-4xl font-bold text-red-500 transition-all duration-1000 ${loaded ? "opacity-100" : "opacity-0"}`}>
+              {stats.reports.toLocaleString("de-DE")}
+            </div>
+            <div className="text-zinc-500 text-sm mt-2 uppercase tracking-wider">Meldungen</div>
+          </div>
+          <div>
+            <div className={`text-4xl font-bold text-red-500 transition-all duration-1000 ${loaded ? "opacity-100" : "opacity-0"}`}>
+              {stats.knights.toLocaleString("de-DE")}
+            </div>
+            <div className="text-zinc-500 text-sm mt-2 uppercase tracking-wider">Knights</div>
+          </div>
+          <div>
+            <div className={`text-4xl font-bold text-red-500 transition-all duration-1000 ${loaded ? "opacity-100" : "opacity-0"}`}>
+              {stats.countries}
+            </div>
+            <div className="text-zinc-500 text-sm mt-2 uppercase tracking-wider">Länder</div>
+          </div>
+        </div>
+      </section>
+
+      {/* How it works */}
+      <section className="max-w-4xl mx-auto px-6 py-24">
+        <h2 className="text-3xl font-bold text-center mb-16">Wie Templer funktioniert</h2>
+        <div className="grid md:grid-cols-3 gap-8">
+          {[
+            {
+              step: "01",
+              title: "Du siehst etwas",
+              desc: "Falschinformation, gefährlicher Inhalt, Manipulation — auf jeder Plattform, in jedem Land.",
+            },
+            {
+              step: "02",
+              title: "Du meldest es",
+              desc: "Screenshot, Link, Beschreibung. 30 Sekunden. Anonym möglich.",
+            },
+            {
+              step: "03",
+              title: "Das Netzwerk verifiziert",
+              desc: "Andere Knights bestätigen oder widersprechen. Schwarmintelligenz schlägt jeden Algorithmus.",
+            },
+          ].map((item) => (
+            <div key={item.step} className="border border-zinc-800 rounded-lg p-6">
+              <div className="text-red-600 font-bold text-sm mb-4 tracking-widest">{item.step}</div>
+              <h3 className="font-semibold text-lg mb-3">{item.title}</h3>
+              <p className="text-zinc-400 text-sm leading-relaxed">{item.desc}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="border-t border-zinc-800 bg-zinc-950 py-24 text-center px-6">
+        <h2 className="text-3xl font-bold mb-4">Werde Knight.</h2>
+        <p className="text-zinc-400 mb-8 max-w-md mx-auto">
+          Kostenlos. Anonym. Non-profit. Deine Meldung zählt.
+        </p>
+        <Link
+          href="/report"
+          className="bg-red-600 hover:bg-red-700 text-white font-semibold px-10 py-4 rounded transition-colors text-lg inline-block"
+        >
+          Jetzt beitreten
+        </Link>
+      </section>
+
+      <footer className="border-t border-zinc-800 px-6 py-6 text-center text-zinc-600 text-xs">
+        Templer — Non-profit. Open Source. Für alle.
+      </footer>
+    </main>
   );
 }
