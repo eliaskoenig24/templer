@@ -16,6 +16,16 @@ const LANG_MAP: Record<string, Lang> = {
   gl: "es", // Galician → Spanish
   fr: "fr",
   pt: "pt",
+  ru: "ru",
+  uk: "ru", // Ukrainian → Russian (closest available)
+  be: "ru", // Belarusian → Russian
+  ar: "ar",
+  zh: "zh",
+  hi: "hi",
+  mr: "hi", // Marathi → Hindi (closest available)
+  id: "id",
+  ms: "id", // Malay → Indonesian (mutually intelligible)
+  tr: "tr",
 };
 
 function detect(): Lang {
@@ -53,29 +63,33 @@ export function useTranslation() {
   return useContext(Ctx);
 }
 
-const LANGS: { code: Lang; label: string }[] = [
-  { code: "de", label: "DE" },
-  { code: "en", label: "EN" },
-  { code: "es", label: "ES" },
-  { code: "fr", label: "FR" },
-  { code: "pt", label: "PT" },
+const LANGS: { code: Lang; label: string; native: string }[] = [
+  { code: "de", label: "DE", native: "Deutsch" },
+  { code: "en", label: "EN", native: "English" },
+  { code: "es", label: "ES", native: "Español" },
+  { code: "fr", label: "FR", native: "Français" },
+  { code: "pt", label: "PT", native: "Português" },
+  { code: "ru", label: "RU", native: "Русский" },
+  { code: "ar", label: "AR", native: "العربية" },
+  { code: "zh", label: "ZH", native: "中文" },
+  { code: "hi", label: "HI", native: "हिन्दी" },
+  { code: "id", label: "ID", native: "Bahasa Indonesia" },
+  { code: "tr", label: "TR", native: "Türkçe" },
 ];
 
 export function LangSwitcher() {
   const { lang, setLang } = useTranslation();
   return (
-    <div className="flex items-center gap-0.5">
-      {LANGS.map((l, i) => (
-        <span key={l.code} className="flex items-center">
-          <button
-            onClick={() => setLang(l.code)}
-            className={`text-[11px] px-1.5 py-0.5 rounded transition-colors ${lang === l.code ? "text-white font-bold" : "text-white/20 hover:text-white/50"}`}
-          >
-            {l.label}
-          </button>
-          {i < LANGS.length - 1 && <span className="text-white/10 text-[10px]">·</span>}
-        </span>
+    <select
+      value={lang}
+      onChange={(e) => setLang(e.target.value as Lang)}
+      className="text-[11px] bg-black/80 text-white/40 hover:text-white/70 border border-white/10 hover:border-white/20 rounded px-2 py-1 cursor-pointer transition-colors outline-none appearance-none"
+    >
+      {LANGS.map((l) => (
+        <option key={l.code} value={l.code} className="bg-black text-white">
+          {l.label} · {l.native}
+        </option>
       ))}
-    </div>
+    </select>
   );
 }
