@@ -60,12 +60,12 @@ export default function Home() {
           gefährliche Inhalte und Manipulation weltweit in Echtzeit melden und verifizieren.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <Link
-            href="/report"
+          <a
+            href="https://www.icloud.com/shortcuts/004285ffce5f46ed8c1139a7a4ee12db"
             className="bg-red-600 hover:bg-red-700 text-white font-semibold px-8 py-4 rounded transition-colors text-lg"
           >
-            Jetzt melden
-          </Link>
+            ⚔️ iOS Shortcut installieren
+          </a>
           <Link
             href="/dashboard"
             className="border border-zinc-700 hover:border-zinc-500 text-zinc-300 font-semibold px-8 py-4 rounded transition-colors text-lg"
@@ -73,6 +73,9 @@ export default function Home() {
             Live-Dashboard
           </Link>
         </div>
+        <p className="text-zinc-600 text-sm mt-4">
+          Einmal installieren → doppelt auf iPhone-Rückseite tippen → melden. Kostenlos. Anonym.
+        </p>
       </section>
 
       {/* Live Stats */}

@@ -39,7 +39,11 @@ export default function DashboardPage() {
       }
 
       const { data, error } = await query;
-      if (!error && data) setReports(data);
+      console.log("data:", data, "error:", error);
+      if (error) {
+        console.error("Supabase error:", error);
+      }
+      if (data) setReports(data);
 
       const { count } = await supabase
         .from("reports")
