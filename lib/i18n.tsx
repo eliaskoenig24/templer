@@ -30,7 +30,7 @@ const LANG_MAP: Record<string, Lang> = {
 
 function detect(): Lang {
   if (typeof window === "undefined") return "en";
-  const stored = localStorage.getItem("templer_lang") as Lang | null;
+  const stored = localStorage.getItem("agora_lang") as Lang | null;
   if (stored && translations[stored]) return stored;
   // navigator.languages gives all preferred languages in order
   for (const lang of navigator.languages) {
@@ -49,7 +49,7 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
 
   function setLang(l: Lang) {
     setLangState(l);
-    localStorage.setItem("templer_lang", l);
+    localStorage.setItem("agora_lang", l);
   }
 
   return (
@@ -83,10 +83,10 @@ export function LangSwitcher() {
     <select
       value={lang}
       onChange={(e) => setLang(e.target.value as Lang)}
-      className="text-[11px] bg-black/80 text-white/40 hover:text-white/70 border border-white/10 hover:border-white/20 rounded px-2 py-1 cursor-pointer transition-colors outline-none appearance-none"
+      className="text-[11px] bg-white text-slate-500 hover:text-slate-700 border border-slate-200 hover:border-slate-300 rounded px-2 py-1 cursor-pointer transition-colors outline-none appearance-none"
     >
       {LANGS.map((l) => (
-        <option key={l.code} value={l.code} className="bg-black text-white">
+        <option key={l.code} value={l.code} className="bg-white text-slate-900">
           {l.label} · {l.native}
         </option>
       ))}

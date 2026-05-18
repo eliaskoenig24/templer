@@ -109,11 +109,12 @@ export default function ReportDetail() {
       {/* NAV */}
       <nav className="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-slate-100">
         <div className="max-w-5xl mx-auto px-6 h-14 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-2.5">
-            <div className="w-6 h-6 bg-red-600 rounded-md flex items-center justify-center">
-              <span className="text-white text-[11px] font-black">T</span>
-            </div>
-            <span className="font-semibold text-sm">Templer</span>
+          <Link href="/" className="flex items-center gap-2">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" className="text-red-600" aria-hidden="true">
+              <circle cx="12" cy="12" r="2.5" /><circle cx="12" cy="4.5" r="1.5" /><circle cx="19" cy="8.25" r="1.5" />
+              <circle cx="19" cy="15.75" r="1.5" /><circle cx="12" cy="19.5" r="1.5" /><circle cx="5" cy="15.75" r="1.5" /><circle cx="5" cy="8.25" r="1.5" />
+            </svg>
+            <span className="font-serif font-bold text-xl tracking-tight">Agora</span>
           </Link>
           <div className="flex items-center gap-5">
             <LangSwitcher />
