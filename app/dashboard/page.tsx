@@ -164,13 +164,13 @@ export default function DashboardPage() {
 
                   <div className="border-t border-white/5 divide-y divide-white/5">
                     {g.reports.map((r) => (
-                      <div key={r.id} className="flex items-center justify-between px-5 py-3 gap-4">
+                      <Link key={r.id} href={`/report/${r.id}`} className="flex items-center justify-between px-5 py-3 gap-4 hover:bg-white/[0.03] transition-colors group">
                         <div className="flex items-center gap-3 min-w-0">
                           <span className={`text-[10px] border px-2 py-0.5 rounded-full shrink-0 ${c.badge}`}>{r.platform}</span>
-                          <span className="text-white/50 text-sm truncate">{r.description}</span>
+                          <span className="text-white/50 text-sm truncate group-hover:text-white/70 transition-colors">{r.description}</span>
                         </div>
                         <span className="text-white/20 text-xs shrink-0 font-mono">{ago(r.created_at)}</span>
-                      </div>
+                      </Link>
                     ))}
                     {g.count > 3 && (
                       <div className="px-5 py-2.5 text-white/20 text-xs">
