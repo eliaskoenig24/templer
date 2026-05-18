@@ -27,19 +27,21 @@ type CategoryGroup = {
 type KnightStat = { knight_id: string; count: number };
 
 const COLORS: Record<string, { bg: string; border: string; badge: string; dot: string }> = {
-  "Fake News":               { bg: "bg-amber-950/20",   border: "border-amber-800/30",   badge: "bg-amber-500/10 text-amber-400 border-amber-500/20",   dot: "bg-amber-400" },
-  "Falschinformation / Fake News": { bg: "bg-amber-950/20", border: "border-amber-800/30", badge: "bg-amber-500/10 text-amber-400 border-amber-500/20", dot: "bg-amber-400" },
-  "Misinformation / Fake News": { bg: "bg-amber-950/20", border: "border-amber-800/30", badge: "bg-amber-500/10 text-amber-400 border-amber-500/20", dot: "bg-amber-400" },
-  "Deepfake/KI-Inhalte":    { bg: "bg-violet-950/20",  border: "border-violet-800/30",  badge: "bg-violet-500/10 text-violet-400 border-violet-500/20",  dot: "bg-violet-400" },
-  "Deepfake / KI-generierter Inhalt": { bg: "bg-violet-950/20", border: "border-violet-800/30", badge: "bg-violet-500/10 text-violet-400 border-violet-500/20", dot: "bg-violet-400" },
-  "Deepfake / AI-generated Content": { bg: "bg-violet-950/20", border: "border-violet-800/30", badge: "bg-violet-500/10 text-violet-400 border-violet-500/20", dot: "bg-violet-400" },
-  "Hassrede/Gewalt":         { bg: "bg-red-950/20",     border: "border-red-800/30",     badge: "bg-red-500/10 text-red-400 border-red-500/20",           dot: "bg-red-400" },
-  "Hassrede / Aufrufe zur Gewalt": { bg: "bg-red-950/20", border: "border-red-800/30", badge: "bg-red-500/10 text-red-400 border-red-500/20", dot: "bg-red-400" },
-  "Hate Speech / Incitement to Violence": { bg: "bg-red-950/20", border: "border-red-800/30", badge: "bg-red-500/10 text-red-400 border-red-500/20", dot: "bg-red-400" },
-  "Politische Manipulation": { bg: "bg-orange-950/20",  border: "border-orange-800/30",  badge: "bg-orange-500/10 text-orange-400 border-orange-500/20",  dot: "bg-orange-400" },
-  "Political Manipulation":  { bg: "bg-orange-950/20",  border: "border-orange-800/30",  badge: "bg-orange-500/10 text-orange-400 border-orange-500/20",  dot: "bg-orange-400" },
+  "Fake News":               { bg: "bg-amber-50",  border: "border-amber-200",  badge: "bg-amber-100 text-amber-700 border-amber-200",  dot: "bg-amber-400" },
+  "Falschinformation / Fake News": { bg: "bg-amber-50", border: "border-amber-200", badge: "bg-amber-100 text-amber-700 border-amber-200", dot: "bg-amber-400" },
+  "Misinformation / Fake News": { bg: "bg-amber-50", border: "border-amber-200", badge: "bg-amber-100 text-amber-700 border-amber-200", dot: "bg-amber-400" },
+  "Deepfake/KI-Inhalte":    { bg: "bg-violet-50", border: "border-violet-200", badge: "bg-violet-100 text-violet-700 border-violet-200", dot: "bg-violet-400" },
+  "Deepfake / KI-generierter Inhalt": { bg: "bg-violet-50", border: "border-violet-200", badge: "bg-violet-100 text-violet-700 border-violet-200", dot: "bg-violet-400" },
+  "Deepfake / AI-generated Content": { bg: "bg-violet-50", border: "border-violet-200", badge: "bg-violet-100 text-violet-700 border-violet-200", dot: "bg-violet-400" },
+  "Hassrede/Gewalt":         { bg: "bg-red-50",    border: "border-red-200",    badge: "bg-red-100 text-red-700 border-red-200",          dot: "bg-red-500" },
+  "Hassrede / Aufrufe zur Gewalt": { bg: "bg-red-50", border: "border-red-200", badge: "bg-red-100 text-red-700 border-red-200", dot: "bg-red-500" },
+  "Hate Speech / Incitement to Violence": { bg: "bg-red-50", border: "border-red-200", badge: "bg-red-100 text-red-700 border-red-200", dot: "bg-red-500" },
+  "Politische Manipulation": { bg: "bg-orange-50", border: "border-orange-200", badge: "bg-orange-100 text-orange-700 border-orange-200", dot: "bg-orange-400" },
+  "Political Manipulation":  { bg: "bg-orange-50", border: "border-orange-200", badge: "bg-orange-100 text-orange-700 border-orange-200", dot: "bg-orange-400" },
 };
-function getColor(cat: string) { return COLORS[cat] || { bg: "bg-white/[0.02]", border: "border-white/8", badge: "bg-white/5 text-white/40 border-white/10", dot: "bg-white/30" }; }
+function getColor(cat: string) {
+  return COLORS[cat] || { bg: "bg-slate-50", border: "border-slate-200", badge: "bg-slate-100 text-slate-600 border-slate-200", dot: "bg-slate-400" };
+}
 
 export default function DashboardPage() {
   const { t } = useTranslation();
@@ -86,73 +88,81 @@ export default function DashboardPage() {
   const medals = ["🥇", "🥈", "🥉"];
 
   return (
-    <main className="min-h-screen bg-[#000] text-white">
-      <nav className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-8 py-5 bg-black/70 backdrop-blur-xl border-b border-white/5">
-        <Link href="/" className="flex items-center gap-2">
-          <div className="w-7 h-7 bg-red-600 rounded-md flex items-center justify-center text-xs font-black">T</div>
-          <span className="font-semibold text-sm tracking-widest uppercase text-white/90">Templer</span>
-        </Link>
-        <div className="flex items-center gap-6">
-          <LangSwitcher />
-          <a href="https://www.icloud.com/shortcuts/004285ffce5f46ed8c1139a7a4ee12db"
-            className="text-sm bg-white text-black font-semibold px-4 py-2 rounded-full hover:bg-white/90 transition-colors">
-            {t.dashboard.installBtn}
-          </a>
+    <main className="min-h-screen bg-white text-slate-900 antialiased">
+
+      {/* NAV */}
+      <nav className="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-slate-100">
+        <div className="max-w-6xl mx-auto px-6 h-14 flex items-center justify-between">
+          <Link href="/" className="flex items-center gap-2.5">
+            <div className="w-6 h-6 bg-red-600 rounded-md flex items-center justify-center">
+              <span className="text-white text-[11px] font-black">T</span>
+            </div>
+            <span className="font-semibold text-sm">Templer</span>
+          </Link>
+          <div className="flex items-center gap-5">
+            <LangSwitcher />
+            <a href="https://www.icloud.com/shortcuts/004285ffce5f46ed8c1139a7a4ee12db"
+              className="text-sm font-medium bg-red-600 text-white px-4 py-1.5 rounded-md hover:bg-red-700 transition-colors">
+              {t.dashboard.installBtn}
+            </a>
+          </div>
         </div>
       </nav>
 
-      <div className="max-w-6xl mx-auto px-6 pt-32 pb-20">
-        <div className="flex items-end justify-between mb-12">
+      <div className="max-w-6xl mx-auto px-6 py-10">
+        {/* Header */}
+        <div className="flex items-end justify-between mb-8">
           <div>
-            <div className="flex items-center gap-2 mb-3">
+            <div className="flex items-center gap-2 mb-2">
               <span className="w-1.5 h-1.5 bg-red-500 rounded-full animate-pulse" />
-              <span className="text-red-500 text-xs uppercase tracking-widest">{t.dashboard.liveLabel}</span>
+              <span className="text-red-600 text-xs font-medium uppercase tracking-wider">{t.dashboard.liveLabel}</span>
             </div>
-            <h1 className="text-4xl font-black">{t.dashboard.title}</h1>
-            <p className="text-white/30 mt-1 text-sm">{total.toLocaleString()} {t.dashboard.meldungen} · {t.dashboard.updatedAgo} {ago(lastUpdate.toISOString())}</p>
+            <h1 className="text-2xl font-bold text-slate-900">{t.dashboard.title}</h1>
+            <p className="text-slate-400 mt-1 text-sm">{total.toLocaleString()} {t.dashboard.meldungen} · {t.dashboard.updatedAgo} {ago(lastUpdate.toISOString())}</p>
           </div>
-          <Link href="/report" className="hidden sm:block border border-white/10 hover:border-white/20 text-white/60 hover:text-white text-sm px-5 py-2.5 rounded-full transition-colors">
+          <Link href="/report" className="hidden sm:block text-sm font-medium bg-slate-900 text-white px-5 py-2.5 rounded-md hover:bg-slate-700 transition-colors">
             {t.dashboard.reportBtn}
           </Link>
         </div>
 
         <div className="grid lg:grid-cols-3 gap-6">
+          {/* Reports list */}
           <div className="lg:col-span-2 space-y-3">
             {loading ? (
-              <div className="flex items-center justify-center py-32 text-white/20 text-sm">{t.dashboard.loading}</div>
+              <div className="flex items-center justify-center py-32 text-slate-400 text-sm">{t.dashboard.loading}</div>
             ) : groups.length === 0 ? (
               <div className="flex flex-col items-center justify-center py-32 gap-4">
-                <p className="text-white/20 text-sm">{t.dashboard.empty}</p>
-                <Link href="/report" className="text-red-500 hover:text-red-400 text-sm transition-colors">{t.dashboard.emptyLink}</Link>
+                <p className="text-slate-400 text-sm">{t.dashboard.empty}</p>
+                <Link href="/report" className="text-red-600 hover:text-red-700 text-sm transition-colors">{t.dashboard.emptyLink}</Link>
               </div>
             ) : groups.map((g) => {
               const c = getColor(g.category);
               return (
-                <div key={g.category} className={`rounded-2xl border ${c.bg} ${c.border} overflow-hidden`}>
-                  <div className="flex items-center justify-between px-5 py-4">
-                    <div className="flex items-center gap-3">
-                      <span className={`w-2 h-2 rounded-full ${c.dot}`} />
-                      <span className="font-semibold text-sm">{g.category}</span>
+                <div key={g.category} className={`rounded-xl border ${c.border} ${c.bg} overflow-hidden`}>
+                  <div className="flex items-center justify-between px-4 py-3">
+                    <div className="flex items-center gap-2.5">
+                      <span className={`w-2 h-2 rounded-full shrink-0 ${c.dot}`} />
+                      <span className="font-semibold text-sm text-slate-900">{g.category}</span>
                       {g.trending && (
-                        <span className="text-[10px] font-bold uppercase tracking-wider bg-red-500/20 text-red-400 border border-red-500/20 px-2 py-0.5 rounded-full">
+                        <span className="text-[10px] font-bold uppercase tracking-wider bg-red-100 text-red-600 border border-red-200 px-2 py-0.5 rounded-full">
                           {t.dashboard.trending}
                         </span>
                       )}
                     </div>
-                    <span className="text-white/30 text-xs font-mono">{g.count} {t.dashboard.meldungen}</span>
+                    <span className="text-slate-400 text-xs">{g.count} {t.dashboard.meldungen}</span>
                   </div>
-                  <div className="border-t border-white/5 divide-y divide-white/5">
+                  <div className="border-t border-slate-200/60 divide-y divide-slate-200/60 bg-white/60">
                     {g.reports.map((r) => (
-                      <Link key={r.id} href={`/report/${r.id}`} className="flex items-center justify-between px-5 py-3 gap-4 hover:bg-white/[0.03] transition-colors group">
-                        <div className="flex items-center gap-3 min-w-0">
+                      <Link key={r.id} href={`/report/${r.id}`} className="flex items-center justify-between px-4 py-3 gap-4 hover:bg-slate-50 transition-colors group">
+                        <div className="flex items-center gap-2.5 min-w-0">
                           <span className={`text-[10px] border px-2 py-0.5 rounded-full shrink-0 ${c.badge}`}>{r.platform}</span>
-                          <span className="text-white/50 text-sm truncate group-hover:text-white/70 transition-colors">{r.description}</span>
+                          <span className="text-slate-600 text-sm truncate group-hover:text-slate-900 transition-colors">{r.description}</span>
                         </div>
-                        <span className="text-white/20 text-xs shrink-0 font-mono">{ago(r.created_at)}</span>
+                        <span className="text-slate-400 text-xs shrink-0 font-mono">{ago(r.created_at)}</span>
                       </Link>
                     ))}
                     {g.count > 3 && (
-                      <div className="px-5 py-2.5 text-white/20 text-xs">+{g.count - 3} {t.dashboard.mehr}</div>
+                      <div className="px-4 py-2 text-slate-400 text-xs">+{g.count - 3} {t.dashboard.mehr}</div>
                     )}
                   </div>
                 </div>
@@ -160,41 +170,42 @@ export default function DashboardPage() {
             })}
           </div>
 
+          {/* Sidebar */}
           <div className="space-y-4">
-            <div className="rounded-2xl border border-white/8 bg-white/[0.02] overflow-hidden">
-              <div className="px-5 py-4 border-b border-white/5">
-                <h2 className="font-bold text-sm">{t.dashboard.topKnights}</h2>
-                <p className="text-white/25 text-xs mt-0.5">{t.dashboard.aktivste}</p>
+            <div className="rounded-xl border border-slate-200 bg-white overflow-hidden">
+              <div className="px-4 py-3 border-b border-slate-100">
+                <h2 className="font-semibold text-sm text-slate-900">{t.dashboard.topKnights}</h2>
+                <p className="text-slate-400 text-xs mt-0.5">{t.dashboard.aktivste}</p>
               </div>
               {knights.length === 0 ? (
-                <div className="px-5 py-8 text-center">
-                  <p className="text-white/20 text-xs mb-4">{t.dashboard.noKnights}</p>
-                  <a href="https://www.icloud.com/shortcuts/004285ffce5f46ed8c1139a7a4ee12db" className="text-xs text-red-400 hover:text-red-300 transition-colors">
+                <div className="px-4 py-8 text-center">
+                  <p className="text-slate-400 text-xs mb-3">{t.dashboard.noKnights}</p>
+                  <a href="https://www.icloud.com/shortcuts/004285ffce5f46ed8c1139a7a4ee12db" className="text-xs text-red-600 hover:text-red-700 transition-colors">
                     {t.dashboard.shortcutLink}
                   </a>
                 </div>
               ) : (
-                <div className="divide-y divide-white/5">
+                <div className="divide-y divide-slate-100">
                   {knights.map((k, i) => (
-                    <div key={k.knight_id} className="flex items-center justify-between px-5 py-3">
-                      <div className="flex items-center gap-3">
-                        <span className="text-base w-5 text-center">{medals[i] || <span className="text-white/20 text-xs">{i + 1}</span>}</span>
-                        <span className="text-sm font-mono text-white/60">Knight-{k.knight_id.slice(-4).toUpperCase()}</span>
+                    <div key={k.knight_id} className="flex items-center justify-between px-4 py-2.5">
+                      <div className="flex items-center gap-2.5">
+                        <span className="text-sm w-5 text-center">{medals[i] || <span className="text-slate-400 text-xs">{i + 1}</span>}</span>
+                        <span className="text-sm font-mono text-slate-600">Knight-{k.knight_id.slice(-4).toUpperCase()}</span>
                       </div>
-                      <span className="text-red-400 text-sm font-bold">{k.count}</span>
+                      <span className="text-red-600 text-sm font-semibold">{k.count}</span>
                     </div>
                   ))}
                 </div>
               )}
             </div>
 
-            <div className="rounded-2xl border border-white/8 bg-white/[0.02] p-5">
-              <p className="text-white/40 text-xs mb-4 leading-relaxed">{t.dashboard.meldBox}</p>
+            <div className="rounded-xl border border-slate-200 bg-white p-4">
+              <p className="text-slate-500 text-xs mb-4 leading-relaxed">{t.dashboard.meldBox}</p>
               <a href="https://www.icloud.com/shortcuts/004285ffce5f46ed8c1139a7a4ee12db"
-                className="flex items-center justify-center gap-2 w-full bg-white text-black text-sm font-bold py-3 rounded-xl hover:bg-white/90 transition-colors mb-2">
+                className="flex items-center justify-center gap-2 w-full bg-slate-900 text-white text-sm font-medium py-2.5 rounded-md hover:bg-slate-700 transition-colors mb-2">
                 {t.dashboard.iosShortcut}
               </a>
-              <Link href="/report" className="flex items-center justify-center w-full border border-white/10 text-white/50 text-sm py-3 rounded-xl hover:border-white/20 hover:text-white/70 transition-colors">
+              <Link href="/report" className="flex items-center justify-center w-full border border-slate-200 text-slate-600 text-sm py-2.5 rounded-md hover:border-slate-300 hover:text-slate-900 transition-colors">
                 {t.dashboard.webForm}
               </Link>
             </div>

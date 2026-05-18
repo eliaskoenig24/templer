@@ -1285,3 +1285,72 @@ export const tr: typeof de = {
 export const translations = { de, en, es, fr, pt, ru, ar, zh, hi, id, tr };
 export type Lang = keyof typeof translations;
 export type T = typeof de;
+
+export const INDEPENDENT_TRANSLATIONS: Record<Lang, { title: string; titleB: string; body: string; tags: string[] }> = {
+  de: {
+    title: "Kein Land. Keine Regierung.",
+    titleB: "Kein Unternehmen kann uns stoppen.",
+    body: "Templer ist Open Source, dezentral und non-profit. Es gibt keinen zentralen Schalter. Den Code kann jeder lesen, kopieren und weiterführen — egal was passiert.",
+    tags: ["Open Source", "Non-Profit", "Dezentral", "Anonym"],
+  },
+  en: {
+    title: "No country. No government.",
+    titleB: "No company can stop us.",
+    body: "Templer is Open Source, decentralised and non-profit. There is no central off-switch. Anyone can read, fork, and continue the code — no matter what happens.",
+    tags: ["Open Source", "Non-Profit", "Decentralised", "Anonymous"],
+  },
+  es: {
+    title: "Ningún país. Ningún gobierno.",
+    titleB: "Ninguna empresa puede detenernos.",
+    body: "Templer es Open Source, descentralizado y sin fines de lucro. No hay un interruptor central. Cualquiera puede leer, copiar y continuar el código.",
+    tags: ["Open Source", "Sin fines de lucro", "Descentralizado", "Anónimo"],
+  },
+  fr: {
+    title: "Aucun pays. Aucun gouvernement.",
+    titleB: "Aucune entreprise ne peut nous arrêter.",
+    body: "Templer est Open Source, décentralisé et à but non lucratif. Il n'y a pas d'interrupteur central. N'importe qui peut lire, copier et poursuivre le code.",
+    tags: ["Open Source", "À but non lucratif", "Décentralisé", "Anonyme"],
+  },
+  pt: {
+    title: "Nenhum país. Nenhum governo.",
+    titleB: "Nenhuma empresa pode nos parar.",
+    body: "Templer é Open Source, descentralizado e sem fins lucrativos. Não há interruptor central. Qualquer pessoa pode ler, copiar e continuar o código.",
+    tags: ["Open Source", "Sem fins lucrativos", "Descentralizado", "Anônimo"],
+  },
+  ru: {
+    title: "Ни одна страна. Ни одно правительство.",
+    titleB: "Ни одна компания не может нас остановить.",
+    body: "Templer — Open Source, децентрализованный и некоммерческий. Нет центрального выключателя. Любой может читать, копировать и продолжать код — что бы ни случилось.",
+    tags: ["Open Source", "Некоммерческий", "Децентрализованный", "Анонимный"],
+  },
+  ar: {
+    title: "لا دولة. لا حكومة.",
+    titleB: "لا شركة يمكنها إيقافنا.",
+    body: "تيمبلر مفتوح المصدر، لامركزي وغير ربحي. لا يوجد مفتاح إيقاف مركزي. يمكن لأي شخص قراءة الكود ونسخه ومواصلته — مهما حدث.",
+    tags: ["مفتوح المصدر", "غير ربحي", "لامركزي", "مجهول الهوية"],
+  },
+  zh: {
+    title: "没有国家。没有政府。",
+    titleB: "没有公司能阻止我们。",
+    body: "Templer 是开源、去中心化且非营利的。没有中央关闭开关。任何人都可以阅读、复制和继续开发代码——无论发生什么。",
+    tags: ["开源", "非营利", "去中心化", "匿名"],
+  },
+  hi: {
+    title: "कोई देश नहीं। कोई सरकार नहीं।",
+    titleB: "कोई कंपनी हमें नहीं रोक सकती।",
+    body: "Templer Open Source, विकेंद्रीकृत और गैर-लाभकारी है। कोई केंद्रीय बंद स्विच नहीं है। कोई भी कोड पढ़, कॉपी और जारी रख सकता है — चाहे कुछ भी हो।",
+    tags: ["Open Source", "गैर-लाभकारी", "विकेंद्रीकृत", "गुमनाम"],
+  },
+  id: {
+    title: "Tidak ada negara. Tidak ada pemerintah.",
+    titleB: "Tidak ada perusahaan yang bisa menghentikan kami.",
+    body: "Templer adalah Open Source, terdesentralisasi, dan nirlaba. Tidak ada saklar pusat. Siapa saja bisa membaca, menyalin, dan melanjutkan kodenya — apapun yang terjadi.",
+    tags: ["Open Source", "Nirlaba", "Terdesentralisasi", "Anonim"],
+  },
+  tr: {
+    title: "Hiçbir ülke. Hiçbir hükümet.",
+    titleB: "Hiçbir şirket bizi durduramaz.",
+    body: "Templer Open Source, merkezi olmayan ve kâr amacı gütmez. Merkezi bir kapatma anahtarı yoktur. Herkes kodu okuyabilir, kopyalayabilir ve sürdürebilir — ne olursa olsun.",
+    tags: ["Open Source", "Kâr Amacı Gütmez", "Merkezi Olmayan", "Anonim"],
+  },
+};

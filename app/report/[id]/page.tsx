@@ -21,19 +21,21 @@ type Report = {
 };
 
 const COLORS: Record<string, { bg: string; border: string; badge: string; dot: string }> = {
-  "Fake News":               { bg: "bg-amber-950/20",  border: "border-amber-800/30",  badge: "bg-amber-500/10 text-amber-400 border-amber-500/20",  dot: "bg-amber-400" },
-  "Falschinformation / Fake News": { bg: "bg-amber-950/20", border: "border-amber-800/30", badge: "bg-amber-500/10 text-amber-400 border-amber-500/20", dot: "bg-amber-400" },
-  "Misinformation / Fake News": { bg: "bg-amber-950/20", border: "border-amber-800/30", badge: "bg-amber-500/10 text-amber-400 border-amber-500/20", dot: "bg-amber-400" },
-  "Deepfake/KI-Inhalte":    { bg: "bg-violet-950/20", border: "border-violet-800/30", badge: "bg-violet-500/10 text-violet-400 border-violet-500/20", dot: "bg-violet-400" },
-  "Deepfake / KI-generierter Inhalt": { bg: "bg-violet-950/20", border: "border-violet-800/30", badge: "bg-violet-500/10 text-violet-400 border-violet-500/20", dot: "bg-violet-400" },
-  "Deepfake / AI-generated Content": { bg: "bg-violet-950/20", border: "border-violet-800/30", badge: "bg-violet-500/10 text-violet-400 border-violet-500/20", dot: "bg-violet-400" },
-  "Hassrede/Gewalt":         { bg: "bg-red-950/20",    border: "border-red-800/30",    badge: "bg-red-500/10 text-red-400 border-red-500/20",          dot: "bg-red-400" },
-  "Hassrede / Aufrufe zur Gewalt": { bg: "bg-red-950/20", border: "border-red-800/30", badge: "bg-red-500/10 text-red-400 border-red-500/20", dot: "bg-red-400" },
-  "Hate Speech / Incitement to Violence": { bg: "bg-red-950/20", border: "border-red-800/30", badge: "bg-red-500/10 text-red-400 border-red-500/20", dot: "bg-red-400" },
-  "Politische Manipulation": { bg: "bg-orange-950/20", border: "border-orange-800/30", badge: "bg-orange-500/10 text-orange-400 border-orange-500/20", dot: "bg-orange-400" },
-  "Political Manipulation":  { bg: "bg-orange-950/20", border: "border-orange-800/30", badge: "bg-orange-500/10 text-orange-400 border-orange-500/20", dot: "bg-orange-400" },
+  "Fake News":               { bg: "bg-amber-50",  border: "border-amber-200",  badge: "bg-amber-100 text-amber-700 border-amber-200",  dot: "bg-amber-400" },
+  "Falschinformation / Fake News": { bg: "bg-amber-50", border: "border-amber-200", badge: "bg-amber-100 text-amber-700 border-amber-200", dot: "bg-amber-400" },
+  "Misinformation / Fake News": { bg: "bg-amber-50", border: "border-amber-200", badge: "bg-amber-100 text-amber-700 border-amber-200", dot: "bg-amber-400" },
+  "Deepfake/KI-Inhalte":    { bg: "bg-violet-50", border: "border-violet-200", badge: "bg-violet-100 text-violet-700 border-violet-200", dot: "bg-violet-400" },
+  "Deepfake / KI-generierter Inhalt": { bg: "bg-violet-50", border: "border-violet-200", badge: "bg-violet-100 text-violet-700 border-violet-200", dot: "bg-violet-400" },
+  "Deepfake / AI-generated Content": { bg: "bg-violet-50", border: "border-violet-200", badge: "bg-violet-100 text-violet-700 border-violet-200", dot: "bg-violet-400" },
+  "Hassrede/Gewalt":         { bg: "bg-red-50",    border: "border-red-200",    badge: "bg-red-100 text-red-700 border-red-200",          dot: "bg-red-500" },
+  "Hassrede / Aufrufe zur Gewalt": { bg: "bg-red-50", border: "border-red-200", badge: "bg-red-100 text-red-700 border-red-200", dot: "bg-red-500" },
+  "Hate Speech / Incitement to Violence": { bg: "bg-red-50", border: "border-red-200", badge: "bg-red-100 text-red-700 border-red-200", dot: "bg-red-500" },
+  "Politische Manipulation": { bg: "bg-orange-50", border: "border-orange-200", badge: "bg-orange-100 text-orange-700 border-orange-200", dot: "bg-orange-400" },
+  "Political Manipulation":  { bg: "bg-orange-50", border: "border-orange-200", badge: "bg-orange-100 text-orange-700 border-orange-200", dot: "bg-orange-400" },
 };
-function getColor(cat: string) { return COLORS[cat] || { bg: "bg-white/[0.02]", border: "border-white/8", badge: "bg-white/5 text-white/40 border-white/10", dot: "bg-white/30" }; }
+function getColor(cat: string) {
+  return COLORS[cat] || { bg: "bg-slate-50", border: "border-slate-200", badge: "bg-slate-100 text-slate-600 border-slate-200", dot: "bg-slate-400" };
+}
 
 function TrustBar({ verified, disputed, t }: { verified: number; disputed: number; t: { votes: string; confirmedPct: string } }) {
   const total = verified + disputed;
@@ -41,12 +43,12 @@ function TrustBar({ verified, disputed, t }: { verified: number; disputed: numbe
   const pct = Math.round((verified / total) * 100);
   return (
     <div>
-      <div className="flex justify-between text-xs text-white/30 mb-2">
+      <div className="flex justify-between text-xs text-slate-400 mb-2">
         <span>{pct}{t.confirmedPct}</span>
         <span>{total} {t.votes}</span>
       </div>
-      <div className="h-1.5 bg-white/5 rounded-full overflow-hidden">
-        <div className={`h-full rounded-full transition-all duration-500 ${pct >= 60 ? "bg-green-400" : pct <= 40 ? "bg-red-400" : "bg-amber-400"}`} style={{ width: `${pct}%` }} />
+      <div className="h-1.5 bg-slate-100 rounded-full overflow-hidden">
+        <div className={`h-full rounded-full transition-all duration-500 ${pct >= 60 ? "bg-green-500" : pct <= 40 ? "bg-red-500" : "bg-amber-400"}`} style={{ width: `${pct}%` }} />
       </div>
     </div>
   );
@@ -102,48 +104,56 @@ export default function ReportDetail() {
   const c = report ? getColor(report.category) : getColor("");
 
   return (
-    <main className="min-h-screen bg-[#000] text-white">
-      <nav className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-8 py-5 bg-black/70 backdrop-blur-xl border-b border-white/5">
-        <Link href="/" className="flex items-center gap-2">
-          <div className="w-7 h-7 bg-red-600 rounded-md flex items-center justify-center text-xs font-black">T</div>
-          <span className="font-semibold text-sm tracking-widest uppercase text-white/90">Templer</span>
-        </Link>
-        <div className="flex items-center gap-6">
-          <LangSwitcher />
-          <Link href="/dashboard" className="text-sm text-white/40 hover:text-white transition-colors">{t.detail.back}</Link>
+    <main className="min-h-screen bg-white text-slate-900 antialiased">
+
+      {/* NAV */}
+      <nav className="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-slate-100">
+        <div className="max-w-5xl mx-auto px-6 h-14 flex items-center justify-between">
+          <Link href="/" className="flex items-center gap-2.5">
+            <div className="w-6 h-6 bg-red-600 rounded-md flex items-center justify-center">
+              <span className="text-white text-[11px] font-black">T</span>
+            </div>
+            <span className="font-semibold text-sm">Templer</span>
+          </Link>
+          <div className="flex items-center gap-5">
+            <LangSwitcher />
+            <Link href="/dashboard" className="text-sm text-slate-500 hover:text-slate-900 transition-colors">{t.detail.back}</Link>
+          </div>
         </div>
       </nav>
 
-      <div className="max-w-3xl mx-auto px-6 pt-32 pb-20">
+      <div className="max-w-3xl mx-auto px-6 pt-10 pb-20">
         {loading ? (
-          <div className="flex items-center justify-center py-40 text-white/20 text-sm">{t.detail.loading}</div>
+          <div className="flex items-center justify-center py-40 text-slate-400 text-sm">{t.detail.loading}</div>
         ) : !report ? (
           <div className="text-center py-40">
-            <p className="text-white/20 mb-4">{t.detail.notFound}</p>
-            <Link href="/dashboard" className="text-red-400 hover:text-red-300 text-sm">{t.detail.back}</Link>
+            <p className="text-slate-400 mb-4">{t.detail.notFound}</p>
+            <Link href="/dashboard" className="text-red-600 hover:text-red-700 text-sm">{t.detail.back}</Link>
           </div>
         ) : (
           <>
-            <div className="flex items-center gap-2 text-xs text-white/20 mb-8">
-              <Link href="/dashboard" className="hover:text-white/40 transition-colors">{t.detail.back.replace("← ", "")}</Link>
+            {/* Breadcrumb */}
+            <div className="flex items-center gap-2 text-xs text-slate-400 mb-6">
+              <Link href="/dashboard" className="hover:text-slate-600 transition-colors">{t.detail.back.replace("← ", "")}</Link>
               <span>/</span>
-              <span className="text-white/40">{report.category}</span>
+              <span className="text-slate-600">{report.category}</span>
             </div>
 
-            <div className={`rounded-2xl border ${c.border} ${c.bg} overflow-hidden mb-6`}>
-              <div className="px-8 py-6 border-b border-white/5">
-                <div className="flex items-center gap-3 mb-5">
+            {/* Main card */}
+            <div className={`rounded-xl border ${c.border} ${c.bg} overflow-hidden mb-6`}>
+              <div className="px-6 py-5 border-b border-slate-200/60">
+                <div className="flex items-center gap-2 mb-4 flex-wrap">
                   <span className={`w-2 h-2 rounded-full shrink-0 ${c.dot}`} />
                   <span className={`text-xs border px-2.5 py-1 rounded-full ${c.badge}`}>{report.category}</span>
                   <span className={`text-xs border px-2.5 py-1 rounded-full ${c.badge}`}>{report.platform}</span>
-                  {report.spam && <span className="text-xs border border-red-500/20 bg-red-500/10 text-red-400 px-2.5 py-1 rounded-full">{t.detail.spam}</span>}
+                  {report.spam && <span className="text-xs border border-red-200 bg-red-100 text-red-600 px-2.5 py-1 rounded-full">{t.detail.spam}</span>}
                 </div>
-                <p className="text-white/80 text-lg leading-relaxed mb-5">{report.description}</p>
-                <div className="flex items-center gap-6 text-xs text-white/20">
+                <p className="text-slate-800 text-lg leading-relaxed mb-4">{report.description}</p>
+                <div className="flex items-center gap-5 text-xs text-slate-400 flex-wrap">
                   <span>{ago(report.created_at)}</span>
                   {report.knight_id && <span className="font-mono">Knight-{report.knight_id.slice(-4).toUpperCase()}</span>}
                   {report.content_url && (
-                    <a href={report.content_url} target="_blank" rel="noopener noreferrer" className="text-white/30 hover:text-white/60 transition-colors underline underline-offset-2">
+                    <a href={report.content_url} target="_blank" rel="noopener noreferrer" className="text-slate-500 hover:text-slate-700 transition-colors underline underline-offset-2">
                       {t.detail.source}
                     </a>
                   )}
@@ -151,29 +161,30 @@ export default function ReportDetail() {
               </div>
 
               {report.image_url && (
-                <div className="px-8 py-6 border-b border-white/5">
-                  <p className="text-xs text-white/20 uppercase tracking-widest mb-3">{t.detail.screenshot}</p>
+                <div className="px-6 py-5 border-b border-slate-200/60">
+                  <p className="text-xs text-slate-400 uppercase tracking-widest mb-3">{t.detail.screenshot}</p>
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={report.image_url} alt="Screenshot" className="rounded-xl w-full max-h-96 object-contain bg-black/40" />
+                  <img src={report.image_url} alt="Screenshot" className="rounded-lg w-full max-h-96 object-contain bg-slate-100" />
                 </div>
               )}
 
-              <div className="px-8 py-6">
-                <p className="text-xs text-white/25 uppercase tracking-widest mb-5">{t.detail.verification}</p>
+              {/* Verification */}
+              <div className="px-6 py-5 bg-white/60">
+                <p className="text-xs text-slate-400 uppercase tracking-widest mb-4">{t.detail.verification}</p>
                 <TrustBar verified={report.verified_count} disputed={report.disputed_count} t={t.detail} />
-                <div className="flex gap-3 mt-5">
+                <div className="flex gap-3 mt-4">
                   {vote ? (
-                    <div className={`w-full text-center py-3 rounded-xl text-sm font-bold border ${vote === "verified" ? "border-green-500/30 bg-green-950/20 text-green-400" : "border-red-500/30 bg-red-950/20 text-red-400"}`}>
+                    <div className={`w-full text-center py-2.5 rounded-lg text-sm font-medium border ${vote === "verified" ? "border-green-200 bg-green-50 text-green-700" : "border-red-200 bg-red-50 text-red-700"}`}>
                       {vote === "verified" ? t.detail.confirmed : t.detail.disputed}
                     </div>
                   ) : (
                     <>
                       <button onClick={() => castVote("verified")} disabled={voteLoading}
-                        className="flex-1 py-3 rounded-xl text-sm font-bold border border-green-500/20 bg-green-950/10 text-green-400/70 hover:bg-green-950/20 hover:text-green-400 hover:border-green-500/30 transition-all disabled:opacity-40">
+                        className="flex-1 py-2.5 rounded-lg text-sm font-medium border border-green-200 bg-green-50 text-green-700 hover:bg-green-100 hover:border-green-300 transition-all disabled:opacity-40">
                         {t.detail.confirm} · {report.verified_count}
                       </button>
                       <button onClick={() => castVote("disputed")} disabled={voteLoading}
-                        className="flex-1 py-3 rounded-xl text-sm font-bold border border-red-500/20 bg-red-950/10 text-red-400/70 hover:bg-red-950/20 hover:text-red-400 hover:border-red-500/30 transition-all disabled:opacity-40">
+                        className="flex-1 py-2.5 rounded-lg text-sm font-medium border border-red-200 bg-red-50 text-red-700 hover:bg-red-100 hover:border-red-300 transition-all disabled:opacity-40">
                         {t.detail.dispute} · {report.disputed_count}
                       </button>
                     </>
@@ -182,18 +193,19 @@ export default function ReportDetail() {
               </div>
             </div>
 
+            {/* Related */}
             {related.length > 0 && (
               <div>
-                <p className="text-xs text-white/20 uppercase tracking-widest mb-4">{t.detail.related} — {report.category}</p>
+                <p className="text-xs text-slate-400 uppercase tracking-widest mb-3">{t.detail.related} — {report.category}</p>
                 <div className="space-y-2">
                   {related.map((r) => (
                     <Link key={r.id} href={`/report/${r.id}`}
-                      className="flex items-center justify-between px-5 py-4 rounded-xl border border-white/5 bg-white/[0.02] hover:border-white/10 hover:bg-white/[0.04] transition-all group">
+                      className="flex items-center justify-between px-4 py-3 rounded-xl border border-slate-100 bg-slate-50 hover:border-slate-200 hover:bg-slate-100 transition-all group">
                       <div className="flex items-center gap-3 min-w-0">
                         <span className={`text-[10px] border px-2 py-0.5 rounded-full shrink-0 ${getColor(r.category).badge}`}>{r.platform}</span>
-                        <span className="text-white/40 text-sm truncate group-hover:text-white/60 transition-colors">{r.description}</span>
+                        <span className="text-slate-600 text-sm truncate group-hover:text-slate-900 transition-colors">{r.description}</span>
                       </div>
-                      <span className="text-white/15 text-xs shrink-0 ml-4 font-mono">{ago(r.created_at)}</span>
+                      <span className="text-slate-400 text-xs shrink-0 ml-4 font-mono">{ago(r.created_at)}</span>
                     </Link>
                   ))}
                 </div>
