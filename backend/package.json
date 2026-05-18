@@ -1,0 +1,26 @@
+{
+  "name": "agora-backend",
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "demo": "tsx src/demo.ts",
+    "build": "tsc",
+    "start": "node dist/index.js"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.30.0",
+    "@qdrant/js-client-rest": "^1.9.0",
+    "@supabase/supabase-js": "^2.45.0",
+    "jimp": "^1.6.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.19.41",
+    "tsx": "^4.22.2",
+    "typescript": "^5.9.3"
+  },
+  "optionalDependencies": {
+    "arweave": "^1.15.0",
+    "kubo-rpc-client": "^4.1.0",
+    "tesseract.js": "^5.1.0"
+  }
+}
