@@ -107,7 +107,7 @@ export default function Home() {
         </Link>
 
         <Link href="/dashboard" className="text-sm text-slate-400 hover:text-slate-600 transition-colors">
-          {t.nav.dashboard} →
+          Registry öffnen →
         </Link>
       </div>
 
